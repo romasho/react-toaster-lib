@@ -1,0 +1,45 @@
+{
+  "name": "education-task-toast-lib-master",
+  "version": "1.0.0",
+  "description": "## Содержание",
+  "main": "index.js",
+  "module": "build/index.es.js",
+  "files": [
+    "build"
+  ],
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.18.13",
+    "@rollup/plugin-commonjs": "^22.0.2",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@storybook/react": "^6.5.10",
+    "@types/react": "^16.9.12",
+    "@types/react-dom": "^16.9.8",
+    "@types/styled-components": "^5.1.0",
+    "babel-loader": "^8.2.5",
+    "babel-preset-react-app": "^10.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rollup": "^2.78.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-typescript2": "^0.33.0",
+    "styled-components": "^5.1.1",
+    "typescript": "^4.7.4"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0",
+    "styled-components": "^5.1.1"
+  }
+}
