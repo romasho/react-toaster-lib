@@ -1,7 +1,8 @@
 {
     "env": {
         "browser": true,
-        "es6": true
+        "es6": true,
+        "node": true
     },
     "extends": [
         "eslint:recommended",
@@ -26,27 +27,6 @@
         }
       }
     },
-    "import/order": [
-      "error",
-      {
-        "pathGroups": [
-          {
-            "pattern": "@/**",
-            "group": "internal",
-            "position": "after"
-          },
-          {
-            "pattern": "./**",
-            "group": "internal",
-            "position": "after"
-          }
-        ],
-        "newlines-between": "always",
-        "pathGroupsExcludedImportTypes": [
-          "builtin"
-        ]
-      }
-    ],
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -59,6 +39,27 @@
         "@typescript-eslint"
     ],
     "rules": {
+      "import/order": [
+        "error",
+        {
+          "pathGroups": [
+            {
+              "pattern": "@/**",
+              "group": "internal",
+              "position": "after"
+            },
+            {
+              "pattern": "./**",
+              "group": "internal",
+              "position": "after"
+            }
+          ],
+          "newlines-between": "always",
+          "pathGroupsExcludedImportTypes": [
+            "builtin"
+          ]
+        }
+      ],
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
       "comma-dangle": [
