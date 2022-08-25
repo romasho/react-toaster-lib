@@ -1,4 +1,3 @@
-
 class ToastStore {
   private static instance: ToastStore
   public toastList = [] as []

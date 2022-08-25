@@ -21,10 +21,32 @@
     "settings": {
       "import/resolver": {
         "node": {
+          "paths": ["src"],
           "extensions": [".js", ".jsx", ".ts", ".tsx"]
         }
       }
     },
+    "import/order": [
+      "error",
+      {
+        "pathGroups": [
+          {
+            "pattern": "@/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "./**",
+            "group": "internal",
+            "position": "after"
+          }
+        ],
+        "newlines-between": "always",
+        "pathGroupsExcludedImportTypes": [
+          "builtin"
+        ]
+      }
+    ],
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true

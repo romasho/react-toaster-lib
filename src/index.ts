@@ -1,4 +1,4 @@
-export { Toast } from './components/Toast'
+export { Toast } from '@/components/Toast'
 
 const L = 'string'
 

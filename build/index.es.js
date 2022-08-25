@@ -1,7 +1,7 @@
-import React from 'react';
+import { jsx } from 'react/jsx-runtime';
 
 function Toast() {
-    return React.createElement("div", null);
+    return jsx("div", {});
 }
 
 var L = 'string';
