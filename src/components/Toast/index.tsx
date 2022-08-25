@@ -1,7 +1,6 @@
-import React from 'react';
+import { useState } from 'react'
 
-function Toast() {
-  return <div />;
+export function Toast() {
+  const [setS, S] = useState(1)
+  return <div />
 }
-
-export default Toast;

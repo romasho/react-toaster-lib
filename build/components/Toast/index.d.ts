@@ -1,3 +1,2 @@
 /// <reference types="react" />
-declare function Toast(): JSX.Element;
-export default Toast;
+export declare function Toast(): JSX.Element;
