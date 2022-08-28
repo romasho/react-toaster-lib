@@ -5,6 +5,7 @@ import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import typescript from 'rollup-plugin-typescript2'
 import alias from '@rollup/plugin-alias'
+import babel from '@rollup/plugin-babel'
 
 const packageJson = require('./package.json')
 
@@ -26,6 +27,11 @@ export default {
     peerDepsExternal(),
     resolve({ extensions: ['.jsx', '.js', '.tsx'] }),
     commonjs(),
+    babel({
+      extensions: ['.jsx', '.js', '.ts', '.tsx', '.cy.ts'],
+      exclude: 'node_modules/**',
+      presets: ['@babel/preset-react'],
+    }),
     typescript({ useTsconfigDeclarationDir: true }),
     alias({
       resolve: ['.tsx', '.ts'],
