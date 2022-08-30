@@ -2,27 +2,29 @@ import React from 'react'
 
 import { CloseIcon } from '@/components/CloseIcon'
 import { Icon } from '@/components/Icon'
+import { IToastProps } from '@/Types'
 
 import {
   Message,
   ToastWrapper,
-  ToastWrapType,
   Description,
 } from './components'
-
-interface test {
-  message: string;
-  description?: string;
-}
 
 export function Toast({
   type,
   message,
-  fontSize,
+  fontSize = 32,
   description,
-}: ToastWrapType & test) {
+  margin = 16,
+  position = 'bottom-left',
+}: IToastProps) {
   return (
-    <ToastWrapper type={type}>
+    <ToastWrapper
+      type={type}
+      margin={margin}
+      fontSize={fontSize}
+      position={position}
+    >
       <Icon type={type} fontSize={fontSize} />
       <div>
         <Message fontSize={fontSize}>{message}</Message>

@@ -1,28 +1,33 @@
 import styled from 'styled-components'
 
 import theme from '@/theme'
-
-export type ToastType =
-  | 'info'
-  | 'warning'
-  | 'error'
-  | 'success'
-
-export interface ToastWrapType {
-  type: ToastType;
-  fontSize?: number;
-  animation?: string;
-  delay?: number;
-}
-
-export interface MessagePropsType {
-  fontSize?: number;
-}
+import { MessagePropsType, ToastWrapType } from '@/Types'
 
 export const ToastWrapper =
   styled.div <
   ToastWrapType >
   `
+  position: absolute;
+  overflow: hidden;
+  ${(props) => {
+    if (props.position === 'bottom-right') {
+      return `bottom:  ${props.margin}px;
+  right: ${props.margin}px;`
+    }
+    if (props.position === 'bottom-left') {
+      return `bottom:  ${props.margin}px;
+  left: ${props.margin}px;`
+    }
+    if (props.position === 'top-right') {
+      return `top:  ${props.margin}px;
+  right: ${props.margin}px;`
+    }
+    if (props.position === 'top-left') {
+      return `top:  ${props.margin}px;
+  left: ${props.margin}px;`
+    }
+  }}
+  margin: ${(props) => props.margin}px;
   width: 660px;
   height: 180px;
   bottom: 0;
@@ -30,9 +35,7 @@ export const ToastWrapper =
   justify-content: flex-start;
   align-items: center;
   border-radius: 24px;
-  position: relative;
-  padding: ${(props) =>
-    props.fontSize ? props.fontSize : 32}px;
+  padding: ${(props) => props.fontSize}px;
   background-color: ${(props) => theme.colors[props.type]};
   color: ${(props) =>
     props.type === 'warning'
@@ -52,12 +55,10 @@ export const Message =
   MessagePropsType >
   `
   margin: 0;
-  font-size: ${(props) =>
-    props.fontSize ? props.fontSize : 32}px;
+  font-size: ${(props) => props.fontSize}px;
   font-family: ${theme.font};
   font-weight: 500;
-  padding: 0px ${(props) =>
-    props.fontSize ? props.fontSize : 32}px;
+  padding: 0px ${(props) => props.fontSize}px;
 `
 
 export const Description =
@@ -65,12 +66,9 @@ export const Description =
   MessagePropsType >
   `
   margin: 0;
-  font-size: ${(props) =>
-    props.fontSize ? props.fontSize * 0.75 : 26}px;
+  font-size: ${(props) => props.fontSize * 0.75}px;
   font-family: ${theme.font};
   font-weight: 500;
-  padding: 0px ${(props) =>
-    props.fontSize ? props.fontSize : 32}px;
-  padding-top: ${(props) =>
-    props.fontSize ? props.fontSize : 32}px;
+  padding: 0px ${(props) => props.fontSize}px;
+  padding-top: ${(props) => props.fontSize}px;
 `

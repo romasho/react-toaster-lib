@@ -3,8 +3,9 @@ import React from 'react'
 import { InfoIcon } from '../InfoIcon'
 import { ErrorIcon } from '../SearchIcon'
 import { SuccessIcon } from '../SuccessIcon'
-import { ToastType } from '../Toast/components'
 import { WarningIcon } from '../WarningIcon'
+
+import { ToastType } from '@/Types'
 
 interface IconProps {
   fontSize?: number;

@@ -7,9 +7,9 @@
   "extends": [
     "standard",
     "standard-react",
-    "plugin:@typescript-eslint/eslint-recommended",
     "prettier",
-    "eslint:recommended"
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended"
   ],
   "plugins": [
     "prettier",

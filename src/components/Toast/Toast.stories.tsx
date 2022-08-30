@@ -7,7 +7,11 @@ export default {
 }
 
 export const Error = () => (
-  <Toast type="error" message="Error toast example" />
+  <Toast
+    type="error"
+    message="Error toast example"
+    position="bottom-left"
+  />
 )
 
 export const Warning = () => (
@@ -16,11 +20,16 @@ export const Warning = () => (
     message="Warning toast example"
     description="404 Lorem iasdasd aldsalks"
     fontSize={34}
+    position="bottom-right"
   />
 )
 
 export const Info = () => (
-  <Toast type="info" message="Info toast example" />
+  <Toast
+    type="info"
+    message="Info toast example"
+    position="top-right"
+  />
 )
 
 export const Success = () => (
