@@ -7,21 +7,31 @@ import {
   Message,
   ToastWrapper,
   ToastWrapType,
+  Description,
 } from './components'
 
 interface test {
   message: string;
+  description?: string;
 }
 
 export function Toast({
   type,
   message,
   fontSize,
+  description,
 }: ToastWrapType & test) {
   return (
     <ToastWrapper type={type}>
       <Icon type={type} fontSize={fontSize} />
-      <Message fontSize={fontSize}>{message}</Message>
+      <div>
+        <Message fontSize={fontSize}>{message}</Message>
+        {description && (
+          <Description fontSize={fontSize}>
+            {description}
+          </Description>
+        )}
+      </div>
       <CloseIcon fontSize={fontSize} />
     </ToastWrapper>
   )

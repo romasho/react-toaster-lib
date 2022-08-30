@@ -51,10 +51,26 @@ export const Message =
   styled.h3 <
   MessagePropsType >
   `
+  margin: 0;
   font-size: ${(props) =>
     props.fontSize ? props.fontSize : 32}px;
   font-family: ${theme.font};
   font-weight: 500;
-  padding: ${(props) =>
+  padding: 0px ${(props) =>
+    props.fontSize ? props.fontSize : 32}px;
+`
+
+export const Description =
+  styled.h4 <
+  MessagePropsType >
+  `
+  margin: 0;
+  font-size: ${(props) =>
+    props.fontSize ? props.fontSize * 0.75 : 26}px;
+  font-family: ${theme.font};
+  font-weight: 500;
+  padding: 0px ${(props) =>
+    props.fontSize ? props.fontSize : 32}px;
+  padding-top: ${(props) =>
     props.fontSize ? props.fontSize : 32}px;
 `

@@ -14,6 +14,7 @@ export const Warning = () => (
   <Toast
     type="warning"
     message="Warning toast example"
+    description="404 Lorem iasdasd aldsalks"
     fontSize={34}
   />
 )
