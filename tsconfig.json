@@ -9,7 +9,7 @@
     "allowJs": true,
     "module": "ESNext",
     "declaration": true,
-    "declarationDir": "types",
+    "declarationDir": "build/types",
     "sourceMap": true,
     "outDir": "dist",
     "moduleResolution": "node",
@@ -31,7 +31,7 @@
   ],
   "exclude": [
     "node_modules",
-    "dist",
+    "build",
     "src/**/*.stories.tsx"
   ]
 }

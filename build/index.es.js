@@ -1,7 +1,7 @@
 import React from 'react';
 
 function Toast() {
-  return /*#__PURE__*/React.createElement("div", null);
+  return /*#__PURE__*/React.createElement("div", null, "\"hello\"");
 }
 
 var L = 'string';

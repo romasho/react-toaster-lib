@@ -5,6 +5,7 @@ const font = 'Helvetica Neue, sans-serif'
 const black = '#000000'
 const white = '#ffffff'
 const error = '#E25837'
+const success = '#37E29A'
 const warning = '#F4E048'
 const info = '#9A40D3'
 
@@ -22,7 +23,7 @@ const startX = keyframes`
 `
 const startY = keyframes`
   from {
-    transform: translateY(-100%);
+    transform: translateY(200%);
     opacity: 0.25;
   }
   to {
@@ -44,6 +45,7 @@ const theme = {
     error,
     warning,
     info,
+    success,
   },
 }
 
