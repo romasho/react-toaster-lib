@@ -13,10 +13,13 @@ export function useToast() {
     function handleStatusChange(toasts: IToastProps[]) {
       setToastList(toasts)
     }
-    toastStore.subscribe('TOAST', handleStatusChange)
-    // return () => {
-    //   X('TOAST');
-    // };
+    const X = toastStore.subscribe(
+      'TOAST',
+      handleStatusChange,
+    )
+    return () => {
+      X()
+    }
   })
 
   return toastList

@@ -63,8 +63,20 @@ function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
 
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+}
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+}
+
 function _arrayWithHoles(arr) {
   if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
 }
 
 function _iterableToArrayLimit(arr, i) {
@@ -114,16 +126,12 @@ function _arrayLikeToArray(arr, len) {
   return arr2;
 }
 
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
-function getIdGenerator() {
-  var lastId = 0;
-  return function getNextUniqueId() {
-    lastId += 1;
-    return lastId;
-  };
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
 var ToastStore = /*#__PURE__*/function () {
@@ -133,8 +141,6 @@ var ToastStore = /*#__PURE__*/function () {
     _defineProperty(this, "toastList", []);
 
     _defineProperty(this, "toastQueue", []);
-
-    _defineProperty(this, "getNextUniqueId", getIdGenerator());
 
     this.toastList = [];
     this.toastQueue = [];
@@ -149,7 +155,9 @@ var ToastStore = /*#__PURE__*/function () {
       var _this = this;
 
       this.toastList.length > 3 ? this.toastQueue.push(el) : this.toastList.push(el);
+      console.log('addtoast');
       this.publish('TOAST');
+      console.log('publish');
       clearInterval(this.timer);
       this.timer = setInterval(function () {
         _this.removeToast();
@@ -161,24 +169,26 @@ var ToastStore = /*#__PURE__*/function () {
       var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
       this.toastList.splice(id, 1);
       this.toastQueue.length && this.toastList.push(this.toastQueue.shift());
-      this.publish('TOAST');
+      console.log('predel');
+      this.publish("TOAST");
+      console.log('del');
     }
   }, {
     key: "subscribe",
     value: function subscribe(eventType, callback) {
       var _this2 = this;
 
-      var id = this.getNextUniqueId();
-
       if (!this.subscriptions[eventType]) {
-        this.subscriptions[eventType] = {};
+        this.subscriptions[eventType] = new Set();
       }
 
-      this.subscriptions[eventType][id] = callback;
-      return {
-        unsubscribe: function unsubscribe() {
-          delete _this2.subscriptions[eventType][id];
-          if (Object.keys(_this2.subscriptions[eventType]).length === 0) delete _this2.subscriptions[eventType];
+      var callbacks = this.subscriptions[eventType];
+      callbacks.add(callback);
+      return function () {
+        callbacks["delete"](callback);
+
+        if (callbacks.size === 0) {
+          delete _this2.subscriptions[eventType];
         }
       };
     }
@@ -187,9 +197,18 @@ var ToastStore = /*#__PURE__*/function () {
     value: function publish(eventType) {
       var _this3 = this;
 
-      if (!this.subscriptions[eventType]) return;
-      Object.keys(this.subscriptions[eventType]).forEach(function (key) {
-        return _this3.subscriptions[eventType][key];
+      if (!this.subscriptions[eventType]) {
+        return console.warn(eventType + " not found!");
+      }
+
+      var callbacks = this.subscriptions[eventType]; // for (const callback of callbacks) {
+      //   // eslint-disable-next-line standard/no-callback-literal
+      //   callback(...args)
+      // }
+
+      callbacks.forEach(function (callback) {
+        // eslint-disable-next-line standard/no-callback-literal
+        callback(_toConsumableArray(_this3.toastList));
       });
     }
   }], [{
@@ -453,9 +472,10 @@ function useToast() {
       setToastList(toasts);
     }
 
-    toastStore.subscribe('TOAST', handleStatusChange); // return () => {
-    //   X('TOAST');
-    // };
+    var X = toastStore.subscribe('TOAST', handleStatusChange);
+    return function () {
+      X();
+    };
   });
   return toastList;
 }

@@ -1,6 +1,6 @@
 {
   "name": "romasho-toast-lib",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "## Содержание",
   "main": "index.js",
   "module": "build/index.es.js",
