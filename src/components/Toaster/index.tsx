@@ -3,12 +3,14 @@ import React from 'react'
 import { Portal } from '../Portal'
 import { Toast } from '../Toast'
 
-import ToastStore from '@/toastStore'
+import { useToast } from '@/hooks/useToast'
 
 export function Toaster() {
+  const toastList = useToast()
+
   return (
     <Portal>
-      {ToastStore.toastList?.map((toast) => (
+      {toastList.map((toast) => (
         <Toast {...toast} key={toast.message} />
       ))}
     </Portal>

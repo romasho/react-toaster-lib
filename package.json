@@ -1,6 +1,6 @@
 {
-  "name": "education-task-toast-lib-master",
-  "version": "1.0.0",
+  "name": "romasho-toast-lib",
+  "version": "1.0.1",
   "description": "## Содержание",
   "main": "index.js",
   "module": "build/index.es.js",

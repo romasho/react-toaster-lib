@@ -2,20 +2,20 @@ import { useState, useEffect } from 'react'
 
 import { IToastProps } from './../Types/index'
 
-import ToastStore from '@/toastStore'
+import { toastStore } from '@/toastStore'
 
 export function useToast() {
   const [toastList, setToastList] = useState(
-    ToastStore.toastList,
+    toastStore.toastList,
   )
 
   useEffect(() => {
     function handleStatusChange(toasts: IToastProps[]) {
       setToastList(toasts)
     }
-    // ChatAPI.subscribeToFriendStatus(friendID, handleStatusChange);
+    toastStore.subscribe('TOAST', handleStatusChange)
     // return () => {
-    //   ChatAPI.unsubscribeFromFriendStatus(friendID, handleStatusChange);
+    //   X('TOAST');
     // };
   })
 
