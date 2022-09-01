@@ -1,5 +1,6 @@
 export interface IconProps {
   fontSize?: number;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 export type ToastType =
@@ -14,11 +15,13 @@ export type ToastPosition =
   | 'top-right'
   | 'top-left'
 
+export type AnimationType = 'startX' | 'startY'
+
 export interface ToastWrapType {
-  type: ToastType;
+  type?: ToastType;
   margin?: number;
   fontSize?: number;
-  animation?: string;
+  animation?: AnimationType;
   delay?: number;
   position?: ToastPosition;
 }

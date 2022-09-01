@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { IconProps } from '@/Types'
+import { IconProps } from '@/types'
 
 export function ErrorIcon({ fontSize = 32 }: IconProps) {
   return (

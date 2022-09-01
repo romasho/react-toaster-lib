@@ -13,8 +13,7 @@ export default {
   input: 'src/index.ts',
   output: [
     {
-      file: './build/prod.js',
-      // file: packageJson.main,
+      file: './build/index.js',
       format: 'cjs',
       sourcemap: true,
     },

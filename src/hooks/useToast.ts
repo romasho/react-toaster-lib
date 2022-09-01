@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react'
 
-import { IToastProps } from './../Types/index'
-
 import { toastStore } from '@/toastStore'
 
 export function useToast() {
@@ -10,17 +8,14 @@ export function useToast() {
   )
 
   useEffect(() => {
-    function handleStatusChange(toasts: IToastProps[]) {
-      setToastList(toasts)
-    }
-    const X = toastStore.subscribe(
+    const unsubscribe = toastStore.subscribe(
       'TOAST',
-      handleStatusChange,
+      setToastList,
     )
     return () => {
-      X()
+      unsubscribe()
     }
-  })
+  }, [])
 
   return toastList
 }

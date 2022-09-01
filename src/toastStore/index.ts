@@ -1,11 +1,15 @@
-import { IToastProps } from "@/Types"
+import { IToastProps } from "@/types"
 
-type CallbackType = (toast: IToastProps[]) => void
+type CallbackType = (toast: Array<IToastProps & Id>) => void
+
+export type Id = {
+  id: number
+}
 
 class ToastStore {
   private static instance: ToastStore
-  public toastList = [] as Array<IToastProps>
-  private toastQueue = [] as Array<IToastProps>
+  public toastList = [] as Array<IToastProps & Id>
+  private toastQueue = [] as Array<IToastProps & Id>
   private timer: NodeJS.Timer | null
   private delay: number
   private subscriptions: {[propName: string]: Set<CallbackType>}
@@ -27,23 +31,30 @@ class ToastStore {
   }
 
   public addToast(el: IToastProps, timer?: number) {
-    this.toastList.length > 3 ? this.toastQueue.push(el) : this.toastList.push(el)
-    console.log('addtoast')
-    this.publish('TOAST')
-    console.log('publish')
-    clearInterval(this.timer as NodeJS.Timer)
+    if (this.toastList.length >= 3) {
+      this.toastQueue.push({...el, id: Date.now()})
+    } else {
+      this.toastList.push({...el, id: Date.now()})
+      this.publish('TOAST')
+      clearInterval(this.timer as NodeJS.Timer)
 
     this.timer = setInterval(() => {
       this.removeToast()
     }, timer || this.delay)
+    }
   }
 
   public removeToast(id = 0) {
     this.toastList.splice(id, 1)
-    this.toastQueue.length && this.toastList.push(this.toastQueue.shift() as IToastProps)
+    this.toastQueue.length && this.toastList.push(this.toastQueue.shift() as IToastProps & Id)
+    
     console.log('predel')
     this.publish("TOAST")
     console.log('del')
+
+    if (this.toastList.length === 0) {
+      clearInterval(this.timer as NodeJS.Timer)
+    }
   }
   
 
@@ -70,11 +81,6 @@ publish(eventType: string) {
     }
   const callbacks = this.subscriptions[eventType]
 
-  // for (const callback of callbacks) {
-
-  //   // eslint-disable-next-line standard/no-callback-literal
-  //   callback(...args)
-  // }
   callbacks.forEach((callback) => {
     // eslint-disable-next-line standard/no-callback-literal
     callback([...this.toastList])

@@ -1,32 +1,14 @@
 import styled from 'styled-components'
 
 import theme from '@/theme'
-import { MessagePropsType, ToastWrapType } from '@/Types'
+import { AnimationType, MessagePropsType, ToastType, ToastWrapType } from '@/types'
 
 export const ToastWrapper =
   styled.div <
   ToastWrapType >
   `
-  position: absolute;
+  position: relative;
   overflow: hidden;
-  ${(props) => {
-    if (props.position === 'bottom-right') {
-      return `bottom:  ${props.margin}px;
-  right: ${props.margin}px;`
-    }
-    if (props.position === 'bottom-left') {
-      return `bottom:  ${props.margin}px;
-  left: ${props.margin}px;`
-    }
-    if (props.position === 'top-right') {
-      return `top:  ${props.margin}px;
-  right: ${props.margin}px;`
-    }
-    if (props.position === 'top-left') {
-      return `top:  ${props.margin}px;
-  left: ${props.margin}px;`
-    }
-  }}
   margin: ${(props) => props.margin}px;
   width: 660px;
   height: 180px;
@@ -36,7 +18,7 @@ export const ToastWrapper =
   align-items: center;
   border-radius: 24px;
   padding: ${(props) => props.fontSize}px;
-  background-color: ${(props) => theme.colors[props.type]};
+  background-color: ${(props) => theme.colors[props.type as ToastType]};
   color: ${(props) =>
     props.type === 'warning'
       ? theme.colors.black
@@ -47,7 +29,7 @@ export const ToastWrapper =
         ? theme.colors.black
         : theme.colors.white};;
   }
-  animation: ${theme.animations.startY} 1s;
+  animation: ${(props) => theme.animations[props.animation as AnimationType]} 1s;
 `
 
 export const Message =

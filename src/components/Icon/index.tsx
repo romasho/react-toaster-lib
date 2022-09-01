@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { InfoIcon } from '../InfoIcon'
-import { ErrorIcon } from '../SearchIcon'
-import { SuccessIcon } from '../SuccessIcon'
-import { WarningIcon } from '../WarningIcon'
+import { ToastType } from '@/types'
 
-import { ToastType } from '@/Types'
+import { WarningIcon } from './WarningIcon'
+import { InfoIcon } from './InfoIcon'
+import { ErrorIcon } from './SearchIcon'
+import { SuccessIcon } from './SuccessIcon'
 
 interface IconProps {
   fontSize?: number;

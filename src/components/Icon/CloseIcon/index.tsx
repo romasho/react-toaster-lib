@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { IconProps } from '@/Types'
+import { IconProps } from '@/types'
 
 import { Close } from './components'
 

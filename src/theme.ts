@@ -23,7 +23,7 @@ const startX = keyframes`
 `
 const startY = keyframes`
   from {
-    transform: translateY(200%);
+    transform: translateY(100%);
     opacity: 0.25;
   }
   to {

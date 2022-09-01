@@ -1,6 +1,6 @@
 {
   "name": "romasho-toast-lib",
-  "version": "1.0.4",
+  "version": "1.0.23",
   "description": "## Содержание",
   "main": "index.js",
   "module": "build/index.es.js",
@@ -80,8 +80,8 @@
     "typescript": "^4.7.4"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "styled-components": "^5.3.5"
+    "react": "*",
+    "react-dom": "*",
+    "styled-components": "*"
   }
 }
