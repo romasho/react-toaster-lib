@@ -4,12 +4,12 @@ import { Portal } from '../Portal'
 import { Toast } from '../Toast'
 
 import { useToast } from '@/hooks/useToast'
-import { ToastWrapType } from '@/types'
+import { ToastPosition, ToastWrapType } from '@/types'
 
 import { ToasterWrapper } from './components'
 
 export const Toaster = memo(function Toaster({
-  position = 'bottom-left',
+  position = ToastPosition.bottomLeft,
   margin = 16,
   delay,
 }: ToastWrapType) {

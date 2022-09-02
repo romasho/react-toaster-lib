@@ -25,7 +25,7 @@ export default {
   ],
   plugins: [
     peerDepsExternal(),
-    resolve({ extensions: ['.jsx', '.js', '.tsx'] }),
+    resolve({ extensions: ['.jsx', '.js', '.tsx', '.ts'] }),
     typescript({ useTsconfigDeclarationDir: true }),
     commonjs(),
     babel({

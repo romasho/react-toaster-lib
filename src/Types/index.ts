@@ -3,19 +3,24 @@ export interface IconProps {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-export type ToastType =
-  | 'info'
-  | 'warning'
-  | 'error'
-  | 'success'
+export enum ToastType {
+  info = "info",
+  warning = 'warning',
+  error = "error",
+  success = 'success'
+}
 
-export type ToastPosition =
-  | 'bottom-right'
-  | 'bottom-left'
-  | 'top-right'
-  | 'top-left'
+export enum ToastPosition {
+  bottomRight = 'bottom-right',
+  bottomLeft = 'bottom-left',
+  topLeft = 'top-left',
+  topRight = 'top-right'
+}
 
-export type AnimationType = 'startX' | 'startY'
+export enum AnimationType {
+  startX = 'startX',
+  startY = 'startY'
+} 
 
 export interface ToastWrapType {
   type?: ToastType;
@@ -36,3 +41,4 @@ export interface ToastMessage {
 }
 
 export type IToastProps = ToastWrapType & ToastMessage
+

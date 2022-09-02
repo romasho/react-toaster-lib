@@ -2,7 +2,11 @@ import React from 'react'
 
 import { CloseIcon } from '@/components/Icon/CloseIcon'
 import { Icon } from '@/components/Icon'
-import { IToastProps } from '@/types'
+import {
+  IToastProps,
+  ToastType,
+  AnimationType,
+} from '@/types'
 import { Id, toastStore } from '@/toastStore'
 
 import {
@@ -12,9 +16,9 @@ import {
 } from './components'
 
 export function Toast({
-  type = 'success',
+  type = ToastType.success,
   fontSize = 32,
-  animation = 'startX',
+  animation = AnimationType.startX,
   message,
   description,
   margin,
