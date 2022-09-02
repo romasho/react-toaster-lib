@@ -265,8 +265,11 @@ var Close = styled.button.withConfig({
 })(["padding:0;border:none;font:inherit;color:inherit;background-color:transparent;cursor:pointer;position:absolute;top:32px;right:32px;width:32px;height:32px;"]);
 
 function CloseIcon(_ref) {
-  var fontSize = _ref.fontSize;
-  return /*#__PURE__*/React.createElement(Close, null, /*#__PURE__*/React.createElement("svg", {
+  var fontSize = _ref.fontSize,
+      onClick = _ref.onClick;
+  return /*#__PURE__*/React.createElement(Close, {
+    onClick: onClick
+  }, /*#__PURE__*/React.createElement("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     width: fontSize,
     height: fontSize,
@@ -453,6 +456,7 @@ function Toast(_ref) {
       id = _ref.id;
 
   var deleteToast = function deleteToast() {
+    console.log(id);
     toastStore.removeToast(id);
   };
 
@@ -464,7 +468,11 @@ function Toast(_ref) {
   }, /*#__PURE__*/React.createElement(Icon, {
     type: type,
     fontSize: fontSize
-  }), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Message, {
+  }), /*#__PURE__*/React.createElement("div", {
+    onClick: function onClick() {
+      return console.log('dd');
+    }
+  }, /*#__PURE__*/React.createElement(Message, {
     fontSize: fontSize
   }, message), description && /*#__PURE__*/React.createElement(Description, {
     fontSize: fontSize

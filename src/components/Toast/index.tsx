@@ -33,7 +33,7 @@ export function Toast({
       animation={animation}
     >
       <Icon type={type} fontSize={fontSize} />
-      <div>
+      <div onClick={() => console.log('dd')}>
         <Message fontSize={fontSize}>{message}</Message>
         {description && (
           <Description fontSize={fontSize}>

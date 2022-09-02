@@ -4,9 +4,12 @@ import { IconProps } from '@/types'
 
 import { Close } from './components'
 
-export function CloseIcon({ fontSize }: IconProps) {
+export function CloseIcon({
+  fontSize,
+  onClick,
+}: IconProps) {
   return (
-    <Close>
+    <Close onClick={onClick}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={fontSize}
