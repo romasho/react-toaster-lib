@@ -26,7 +26,6 @@ class ToastStore {
     if (!this.instance) {
       this.instance = new this()
     }
-
     return this.instance
   }
 
@@ -47,10 +46,8 @@ class ToastStore {
   public removeToast(id = 0) {
     this.toastList.splice(id, 1)
     this.toastQueue.length && this.toastList.push(this.toastQueue.shift() as IToastProps & Id)
-    
-    console.log('predel')
+
     this.publish("TOAST")
-    console.log('del')
 
     if (this.toastList.length === 0) {
       clearInterval(this.timer as NodeJS.Timer)

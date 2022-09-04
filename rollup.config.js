@@ -26,13 +26,6 @@ export default {
   plugins: [
     peerDepsExternal(),
     resolve({ extensions: ['.jsx', '.js', '.tsx', '.ts'] }),
-    typescript({ useTsconfigDeclarationDir: true }),
-    commonjs(),
-    babel({
-      extensions: ['.jsx', '.js', '.ts', '.tsx', '.cy.ts'],
-      exclude: 'node_modules/**',
-      presets: ['@babel/preset-react'],
-    }),
     alias({
       resolve: ['.tsx', '.ts'],
       entries: [
@@ -45,5 +38,12 @@ export default {
         },
       ],
     }),
+    typescript({ useTsconfigDeclarationDir: true }),
+    babel({
+      extensions: ['.jsx', '.js', '.ts', '.tsx'],
+      exclude: 'node_modules/**',
+      presets: ['@babel/preset-react'],
+    }),
+    commonjs(),
   ],
 }

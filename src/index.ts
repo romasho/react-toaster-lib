@@ -1,5 +1,4 @@
-export { toastStore } from '@/toastStore'
-export { Toast } from '@/components/Toast'
-export { Toaster } from '@/components/Toaster'
+export { toastStore } from './toastStore'
+export { Toaster } from './components/Toaster'
 
-export * from '@/types'
+export * from './types'

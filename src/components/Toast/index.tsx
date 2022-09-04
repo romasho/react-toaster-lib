@@ -25,7 +25,6 @@ export function Toast({
   id,
 }: IToastProps & Id) {
   const deleteToast = () => {
-    console.log(id)
     toastStore.removeToast(id)
   }
 
@@ -37,7 +36,7 @@ export function Toast({
       animation={animation}
     >
       <Icon type={type} fontSize={fontSize} />
-      <div onClick={() => console.log('dd')}>
+      <div>
         <Message fontSize={fontSize}>{message}</Message>
         {description && (
           <Description fontSize={fontSize}>

@@ -381,6 +381,31 @@ function Icon(_ref) {
   }));
 }
 
+var ToastType;
+
+(function (ToastType) {
+  ToastType["info"] = "info";
+  ToastType["warning"] = "warning";
+  ToastType["error"] = "error";
+  ToastType["success"] = "success";
+})(ToastType || (ToastType = {}));
+
+var ToastPosition;
+
+(function (ToastPosition) {
+  ToastPosition["bottomRight"] = "bottom-right";
+  ToastPosition["bottomLeft"] = "bottom-left";
+  ToastPosition["topLeft"] = "top-left";
+  ToastPosition["topRight"] = "top-right";
+})(ToastPosition || (ToastPosition = {}));
+
+var AnimationType;
+
+(function (AnimationType) {
+  AnimationType["startX"] = "startX";
+  AnimationType["startY"] = "startY";
+})(AnimationType || (AnimationType = {}));
+
 var font = 'Helvetica Neue, sans-serif';
 var black = '#000000';
 var white = '#ffffff';
@@ -445,11 +470,11 @@ var Description = styled.h4.withConfig({
 
 function Toast(_ref) {
   var _ref$type = _ref.type,
-      type = _ref$type === void 0 ? 'success' : _ref$type,
+      type = _ref$type === void 0 ? ToastType.success : _ref$type,
       _ref$fontSize = _ref.fontSize,
       fontSize = _ref$fontSize === void 0 ? 32 : _ref$fontSize,
       _ref$animation = _ref.animation,
-      animation = _ref$animation === void 0 ? 'startX' : _ref$animation,
+      animation = _ref$animation === void 0 ? AnimationType.startX : _ref$animation,
       message = _ref.message,
       description = _ref.description,
       margin = _ref.margin,
@@ -530,14 +555,14 @@ var ToasterWrapper = styled.div.withConfig({
   }
 });
 
-var Toaster = /*#__PURE__*/memo(function Toaster(_ref) {
+function ToasterContainer(_ref) {
   var _ref$position = _ref.position,
-      position = _ref$position === void 0 ? 'bottom-left' : _ref$position,
+      position = _ref$position === void 0 ? ToastPosition.bottomLeft : _ref$position,
       _ref$margin = _ref.margin,
       margin = _ref$margin === void 0 ? 16 : _ref$margin,
       delay = _ref.delay;
   var toastList = useToast();
-  return /*#__PURE__*/React.createElement(Portal, null, /*#__PURE__*/React.createElement(ToasterWrapper, {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(ToasterWrapper, {
     position: position,
     margin: margin
   }, toastList.map(function (toast, index) {
@@ -548,7 +573,20 @@ var Toaster = /*#__PURE__*/memo(function Toaster(_ref) {
       id: index
     }));
   })));
-});
+}
 
-export { Toast, Toaster, toastStore };
+function Toaster(_ref) {
+  var _ref$position = _ref.position,
+      position = _ref$position === void 0 ? ToastPosition.bottomLeft : _ref$position,
+      _ref$margin = _ref.margin,
+      margin = _ref$margin === void 0 ? 16 : _ref$margin,
+      delay = _ref.delay;
+  return /*#__PURE__*/React.createElement(Portal, null, /*#__PURE__*/React.createElement(ToasterContainer, {
+    position: position,
+    margin: margin,
+    delay: delay
+  }));
+}
+
+export { AnimationType, Toast, ToastPosition, ToastType, Toaster, toastStore };
 //# sourceMappingURL=index.es.js.map
