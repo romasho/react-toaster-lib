@@ -14,17 +14,39 @@ const boxShadow = 'box-shadow: 4px 4px 8px #00000029;'
 const startX = keyframes`
   from {
     transform: translateX(-100%);
-    opacity: 0.25;
+    opacity: 0;
   }
   to {
     transform: translateX(0);
     opacity: 1;
   }
 `
+const startNegativeX = keyframes`
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+`
+
 const startY = keyframes`
   from {
     transform: translateY(100%);
-    opacity: 0.25;
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`
+
+const startNegativeY = keyframes`
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
   }
   to {
     transform: translateY(0);
@@ -38,6 +60,8 @@ const theme = {
   animations: {
     startX,
     startY,
+    startNegativeY,
+    startNegativeX,
   },
   colors: {
     black,

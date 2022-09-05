@@ -8,10 +8,12 @@ export const ToastWrapper =
   ToastWrapType >
   `
   position: relative;
+  z-index: 9;
+  box-sizing: border-box;
   overflow: hidden;
   margin: ${(props) => props.margin}px;
-  width: 660px;
-  height: 180px;
+  width: ${(props) => props.width || 660}px;
+  height: ${(props) => props.height || 180}px;
   bottom: 0;
   display: flex;
   justify-content: flex-start;

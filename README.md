@@ -20,17 +20,23 @@ $ yarn add romasho-toast-lib
 ```jsx
   import React from 'react';
 
-  import { toastStore, Toaster } from 'romasho-toast-lib'
+  import { toastStore, Toaster, ToastType, AnimationType, ToastPosition } from 'romasho-toast-lib'
   
   function App(){
+    const { error } = ToastType;
+    const { startX } = AnimationType;
+    const { bottomRight } = ToastPosition;  
+
     const notify = () => toastStore.addToast({
                 message: 'Hello world!',
+                animation: startX,
+                type: error,
               });
 
     return (
       <div>
         <button onClick={notify}>Add toast</button>
-        <Toaster />
+        <Toaster position={bottomRight} />
       </div>
     );
   }

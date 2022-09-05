@@ -19,8 +19,15 @@ export enum ToastPosition {
 
 export enum AnimationType {
   startX = 'startX',
-  startY = 'startY'
+  startY = 'startY',
+  startNegativeY = 'startNegativeY',
+  startNegativeX = 'startNegativeX'
 } 
+
+export interface ToasterType {
+  position: ToastPosition;
+  margin?: number;
+}
 
 export interface ToastWrapType {
   type?: ToastType;
@@ -28,7 +35,8 @@ export interface ToastWrapType {
   fontSize?: number;
   animation?: AnimationType;
   delay?: number;
-  position?: ToastPosition;
+  width?: number;
+  height?: number;
 }
 
 export interface MessagePropsType {

@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useState } from 'react';
-import styled, { keyframes } from 'styled-components';
 import ReactDOM from 'react-dom';
+import styled, { keyframes } from 'styled-components';
 
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
@@ -201,9 +201,7 @@ var ToastStore = /*#__PURE__*/function () {
       var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
       this.toastList.splice(id, 1);
       this.toastQueue.length && this.toastList.push(this.toastQueue.shift());
-      console.log('predel');
       this.publish("TOAST");
-      console.log('del');
 
       if (this.toastList.length === 0) {
         clearInterval(this.timer);
@@ -238,9 +236,8 @@ var ToastStore = /*#__PURE__*/function () {
       }
 
       var callbacks = this.subscriptions[eventType];
-      callbacks.forEach(function (callback) {
-        // eslint-disable-next-line standard/no-callback-literal
-        callback(_toConsumableArray(_this3.toastList));
+      callbacks.forEach(function (func) {
+        func(_toConsumableArray(_this3.toastList));
       });
     }
   }], [{
@@ -258,6 +255,81 @@ var ToastStore = /*#__PURE__*/function () {
 }();
 
 var toastStore = new ToastStore();
+
+var Portal = /*#__PURE__*/memo(function Portal(_ref) {
+  var children = _ref.children;
+  var el = document.createElement('div');
+  useEffect(function () {
+    document.body.appendChild(el);
+    return function () {
+      document.body.removeChild(el);
+    };
+  });
+  return /*#__PURE__*/ReactDOM.createPortal(children, el);
+});
+
+function useToast() {
+  var _useState = useState(toastStore.toastList),
+      _useState2 = _slicedToArray(_useState, 2),
+      toastList = _useState2[0],
+      setToastList = _useState2[1];
+
+  useEffect(function () {
+    var unsubscribe = toastStore.subscribe('TOAST', setToastList);
+    return function () {
+      unsubscribe();
+    };
+  }, []);
+  return toastList;
+}
+
+var ToastType;
+
+(function (ToastType) {
+  ToastType["info"] = "info";
+  ToastType["warning"] = "warning";
+  ToastType["error"] = "error";
+  ToastType["success"] = "success";
+})(ToastType || (ToastType = {}));
+
+var ToastPosition;
+
+(function (ToastPosition) {
+  ToastPosition["bottomRight"] = "bottom-right";
+  ToastPosition["bottomLeft"] = "bottom-left";
+  ToastPosition["topLeft"] = "top-left";
+  ToastPosition["topRight"] = "top-right";
+})(ToastPosition || (ToastPosition = {}));
+
+var AnimationType;
+
+(function (AnimationType) {
+  AnimationType["startX"] = "startX";
+  AnimationType["startY"] = "startY";
+  AnimationType["startNegativeY"] = "startNegativeY";
+  AnimationType["startNegativeX"] = "startNegativeX";
+})(AnimationType || (AnimationType = {}));
+
+var ToasterWrapper = styled.div.withConfig({
+  displayName: "components__ToasterWrapper",
+  componentId: "sc-13csuii-0"
+})(["position:absolute;overflow:hidden;", ""], function (props) {
+  if (props.position === 'bottom-right') {
+    return "bottom:  ".concat(props.margin, "px;\n  right: ").concat(props.margin, "px;");
+  }
+
+  if (props.position === 'bottom-left') {
+    return "bottom:  ".concat(props.margin, "px;\n  left: ").concat(props.margin, "px;");
+  }
+
+  if (props.position === 'top-right') {
+    return "top:  ".concat(props.margin, "px;\n  right: ").concat(props.margin, "px;");
+  }
+
+  if (props.position === 'top-left') {
+    return "top:  ".concat(props.margin, "px;\n  left: ").concat(props.margin, "px;");
+  }
+});
 
 var Close = styled.button.withConfig({
   displayName: "components__Close",
@@ -381,31 +453,6 @@ function Icon(_ref) {
   }));
 }
 
-var ToastType;
-
-(function (ToastType) {
-  ToastType["info"] = "info";
-  ToastType["warning"] = "warning";
-  ToastType["error"] = "error";
-  ToastType["success"] = "success";
-})(ToastType || (ToastType = {}));
-
-var ToastPosition;
-
-(function (ToastPosition) {
-  ToastPosition["bottomRight"] = "bottom-right";
-  ToastPosition["bottomLeft"] = "bottom-left";
-  ToastPosition["topLeft"] = "top-left";
-  ToastPosition["topRight"] = "top-right";
-})(ToastPosition || (ToastPosition = {}));
-
-var AnimationType;
-
-(function (AnimationType) {
-  AnimationType["startX"] = "startX";
-  AnimationType["startY"] = "startY";
-})(AnimationType || (AnimationType = {}));
-
 var font = 'Helvetica Neue, sans-serif';
 var black = '#000000';
 var white = '#ffffff';
@@ -414,14 +461,18 @@ var success = '#37E29A';
 var warning = '#F4E048';
 var info = '#9A40D3';
 var boxShadow = 'box-shadow: 4px 4px 8px #00000029;';
-var startX = keyframes(["from{transform:translateX(-100%);opacity:0.25;}to{transform:translateX(0);opacity:1;}"]);
-var startY = keyframes(["from{transform:translateY(100%);opacity:0.25;}to{transform:translateY(0);opacity:1;}"]);
+var startX = keyframes(["from{transform:translateX(-100%);opacity:0;}to{transform:translateX(0);opacity:1;}"]);
+var startNegativeX = keyframes(["from{transform:translateX(100%);opacity:0;}to{transform:translateX(0);opacity:1;}"]);
+var startY = keyframes(["from{transform:translateY(100%);opacity:0;}to{transform:translateY(0);opacity:1;}"]);
+var startNegativeY = keyframes(["from{transform:translateY(-100%);opacity:0;}to{transform:translateY(0);opacity:1;}"]);
 var theme = {
   boxShadow: boxShadow,
   font: font,
   animations: {
     startX: startX,
-    startY: startY
+    startY: startY,
+    startNegativeY: startNegativeY,
+    startNegativeX: startNegativeX
   },
   colors: {
     black: black,
@@ -436,8 +487,12 @@ var theme = {
 var ToastWrapper = styled.div.withConfig({
   displayName: "components__ToastWrapper",
   componentId: "sc-cn87nn-0"
-})(["position:relative;overflow:hidden;margin:", "px;width:660px;height:180px;bottom:0;display:flex;justify-content:flex-start;align-items:center;border-radius:24px;padding:", "px;background-color:", ";color:", ";svg{fill:", ";;}animation:", " 1s;"], function (props) {
+})(["position:relative;z-index:9;box-sizing:border-box;overflow:hidden;margin:", "px;width:", "px;height:", "px;bottom:0;display:flex;justify-content:flex-start;align-items:center;border-radius:24px;padding:", "px;background-color:", ";color:", ";svg{fill:", ";;}animation:", " 1s;"], function (props) {
   return props.margin;
+}, function (props) {
+  return props.width || 660;
+}, function (props) {
+  return props.height || 180;
 }, function (props) {
   return props.fontSize;
 }, function (props) {
@@ -478,10 +533,11 @@ function Toast(_ref) {
       message = _ref.message,
       description = _ref.description,
       margin = _ref.margin,
-      id = _ref.id;
+      id = _ref.id,
+      width = _ref.width,
+      height = _ref.height;
 
   var deleteToast = function deleteToast() {
-    console.log(id);
     toastStore.removeToast(id);
   };
 
@@ -489,15 +545,13 @@ function Toast(_ref) {
     type: type,
     margin: margin,
     fontSize: fontSize,
-    animation: animation
+    animation: animation,
+    width: width,
+    height: height
   }, /*#__PURE__*/React.createElement(Icon, {
     type: type,
     fontSize: fontSize
-  }), /*#__PURE__*/React.createElement("div", {
-    onClick: function onClick() {
-      return console.log('dd');
-    }
-  }, /*#__PURE__*/React.createElement(Message, {
+  }), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Message, {
     fontSize: fontSize
   }, message), description && /*#__PURE__*/React.createElement(Description, {
     fontSize: fontSize
@@ -507,69 +561,18 @@ function Toast(_ref) {
   }));
 }
 
-var Portal = /*#__PURE__*/memo(function Portal(_ref) {
-  var children = _ref.children;
-  var el = document.createElement('div');
-  useEffect(function () {
-    document.body.appendChild(el);
-    return function () {
-      document.body.removeChild(el);
-    };
-  });
-  return /*#__PURE__*/ReactDOM.createPortal(children, el);
-});
-
-function useToast() {
-  var _useState = useState(toastStore.toastList),
-      _useState2 = _slicedToArray(_useState, 2),
-      toastList = _useState2[0],
-      setToastList = _useState2[1];
-
-  useEffect(function () {
-    var unsubscribe = toastStore.subscribe('TOAST', setToastList);
-    return function () {
-      unsubscribe();
-    };
-  }, []);
-  return toastList;
-}
-
-var ToasterWrapper = styled.div.withConfig({
-  displayName: "components__ToasterWrapper",
-  componentId: "sc-13csuii-0"
-})(["position:absolute;overflow:hidden;", ""], function (props) {
-  if (props.position === 'bottom-right') {
-    return "bottom:  ".concat(props.margin, "px;\n  right: ").concat(props.margin, "px;");
-  }
-
-  if (props.position === 'bottom-left') {
-    return "bottom:  ".concat(props.margin, "px;\n  left: ").concat(props.margin, "px;");
-  }
-
-  if (props.position === 'top-right') {
-    return "top:  ".concat(props.margin, "px;\n  right: ").concat(props.margin, "px;");
-  }
-
-  if (props.position === 'top-left') {
-    return "top:  ".concat(props.margin, "px;\n  left: ").concat(props.margin, "px;");
-  }
-});
-
 function ToasterContainer(_ref) {
   var _ref$position = _ref.position,
       position = _ref$position === void 0 ? ToastPosition.bottomLeft : _ref$position,
       _ref$margin = _ref.margin,
-      margin = _ref$margin === void 0 ? 16 : _ref$margin,
-      delay = _ref.delay;
+      margin = _ref$margin === void 0 ? 16 : _ref$margin;
   var toastList = useToast();
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(ToasterWrapper, {
     position: position,
     margin: margin
   }, toastList.map(function (toast, index) {
     return /*#__PURE__*/React.createElement(Toast, _extends({}, toast, {
-      margin: margin,
       key: toast.id,
-      delay: delay,
       id: index
     }));
   })));
@@ -579,14 +582,12 @@ function Toaster(_ref) {
   var _ref$position = _ref.position,
       position = _ref$position === void 0 ? ToastPosition.bottomLeft : _ref$position,
       _ref$margin = _ref.margin,
-      margin = _ref$margin === void 0 ? 16 : _ref$margin,
-      delay = _ref.delay;
+      margin = _ref$margin === void 0 ? 16 : _ref$margin;
   return /*#__PURE__*/React.createElement(Portal, null, /*#__PURE__*/React.createElement(ToasterContainer, {
     position: position,
-    margin: margin,
-    delay: delay
+    margin: margin
   }));
 }
 
-export { AnimationType, Toast, ToastPosition, ToastType, Toaster, toastStore };
+export { AnimationType, ToastPosition, ToastType, Toaster, toastStore };
 //# sourceMappingURL=index.es.js.map

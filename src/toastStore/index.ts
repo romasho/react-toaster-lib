@@ -78,9 +78,8 @@ publish(eventType: string) {
     }
   const callbacks = this.subscriptions[eventType]
 
-  callbacks.forEach((callback) => {
-    // eslint-disable-next-line standard/no-callback-literal
-    callback([...this.toastList])
+  callbacks.forEach((func) => {
+    func([...this.toastList])
   })
 }
 }

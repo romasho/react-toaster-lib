@@ -23,6 +23,8 @@ export function Toast({
   description,
   margin,
   id,
+  width,
+  height,
 }: IToastProps & Id) {
   const deleteToast = () => {
     toastStore.removeToast(id)
@@ -34,6 +36,8 @@ export function Toast({
       margin={margin}
       fontSize={fontSize}
       animation={animation}
+      width={width}
+      height={height}
     >
       <Icon type={type} fontSize={fontSize} />
       <div>
