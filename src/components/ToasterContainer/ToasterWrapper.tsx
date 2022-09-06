@@ -1,10 +1,10 @@
 import React from 'react'
 
+import { ToasterWrapper } from '../Toaster/components'
+import { Toast } from '../Toast'
+
 import { useToast } from '@/hooks/useToast'
 import { ToastPosition, ToasterType } from '@/types'
-
-import { ToasterWrapper } from './Toaster/components'
-import { Toast } from './Toast'
 
 export function ToasterContainer({
   position = ToastPosition.bottomLeft,

@@ -1,7 +1,8 @@
 import React from 'react'
 
 import { Portal } from '../Portal'
-import { ToasterContainer } from '../ToaserWrapper'
+import { ToasterContainer } from '../ToasterContainer/ToasterWrapper'
+import { ErrorBoundary } from '../ErrorBoundary'
 
 import { ToastPosition, ToasterType } from '@/types'
 
@@ -11,10 +12,12 @@ export function Toaster({
 }: ToasterType) {
   return (
     <Portal>
-      <ToasterContainer
-        position={position}
-        margin={margin}
-      />
+      <ErrorBoundary>
+        <ToasterContainer
+          position={position}
+          margin={margin}
+        />
+      </ErrorBoundary>
     </Portal>
   )
 }
